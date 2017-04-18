@@ -97,4 +97,20 @@ command.action(function(directory, url, options) {
 		}
 	});
 });
+
+var command = program.command('restore <directory> <url>');
+command.description('Restores the most recent backup to a directory');
+command.action(function(directory, url, options) {
+    duplicity=new DuplicityCollection(url, config);
+    duplicity.fullRestore(directory, function(err, data) {
+        if (err)
+        {
+            console.error('ERROR: ', data);
+        }
+        else
+        {
+            console.log(data);
+        }
+    });
+});
 program.parse(process.argv);

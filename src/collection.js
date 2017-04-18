@@ -210,3 +210,14 @@ DuplicityCollection.prototype.createIncrementalBackup = function (directory, cb)
 	this.createBackup(directory, 'incremental', cb);
 };
 
+DuplicityCollection.prototype.fullRestore = function(directory, cb) {
+	this.rawCall([this.url, directory], function (code, stdout, stderr) {
+        if (code) {
+            cb(code, stdout + "\n" + stderr);
+            return;
+        }
+        else {
+        	cb(code);
+        }
+    });
+}
