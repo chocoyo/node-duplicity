@@ -12,9 +12,16 @@ DuplicityCollection.prototype.rawCall = function (parameters, cb) {
 //    parameters.push('--use-agent');
 //	console.log(this.options);
 //	console.log('exec: ', this.options.duplicity_command + ' ' + parameters.join(' '));
-	exec('bash -l -c \'' + this.options.duplicity_command + ' ' + parameters.join(' ') + '\'', {
-		"env": this.options.env
-	},function(error, stdout, stderr)
+	parameters.push('--no-print-statistics');
+	parameters.push('--verbosity 0');
+
+	const _opts = {
+		env: this.options.env
+	};
+	if (this.options.maxBuffer) {
+		_opts.maxBuffer = this.options.maxBuffer;
+	}
+	exec('bash -l -c \'' + this.options.duplicity_command + ' ' + parameters.join(' ') + '\'', _opts, function(error, stdout, stderr)
 	{
 		cb(error !== null ? error.code : false, stdout, stderr);
 	});

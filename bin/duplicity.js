@@ -113,4 +113,5 @@ command.action(function(directory, url, options) {
         }
     });
 });
+
 program.parse(process.argv);
