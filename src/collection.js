@@ -23,7 +23,7 @@ DuplicityCollection.prototype.rawCall = function (parameters, cb) {
 	}
 	exec('bash -l -c \'' + this.options.duplicity_command + ' ' + parameters.join(' ') + '\'', _opts, function(error, stdout, stderr)
 	{
-		cb(error !== null ? error.code : false, stdout, stderr);
+		cb(error !== null ? error : false, stdout, stderr);
 	});
 };
 
